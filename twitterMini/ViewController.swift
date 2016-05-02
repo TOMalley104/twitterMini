@@ -11,7 +11,7 @@ import OAuthSwift
 
 class ViewController: UIViewController {
     
-    let twitter = TwitterAPIClient.sharedClient
+    let dataManager = TwitterDataManager.sharedManager
     let twitterSignInButton = UIButton()
     
     // MARK: View Life Cycle
@@ -19,22 +19,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTwitterButton()
-        // we need to tell it who is presenting the safariVC for authorization
-        twitter.oauthManager.authorize_url_handler = SafariURLHandler(viewController: self)
     }
     
     // MARK: Actions
     
     func authorizeTapped() {
-        twitter.authorizeTwitter { (success) in
+        dataManager.authorize { success in
             if success {
-                self.twitterSignInButton.hidden = true
-                // load status w/ indicator
-                self.twitter.fetchTimeline({ (error) in
+                self.dataManager.populateStatuses({ error in
                     if let error = error {
                         self.presentErrorAlert(error.localizedDescription)
                     } else {
-                        // dismiss indicator, show tableview of statuses
+                        // TODO: show tableview!
+                        print(self.dataManager.statuses)
                     }
                 })
             } else {
@@ -55,7 +52,7 @@ class ViewController: UIViewController {
         twitterSignInButton.addTarget(self, action: #selector(authorizeTapped), forControlEvents: .TouchUpInside)
     }
     
-    func presentErrorAlert(message:String = "Something went wrong. Sorry :("){
+    func presentErrorAlert(message: String = "Something went wrong. Sorry :("){
         let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertController.addAction(okAction)
