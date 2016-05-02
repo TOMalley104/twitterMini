@@ -28,9 +28,17 @@ class ViewController: UIViewController {
     func authorizeTapped() {
         twitter.authorizeTwitter { (success) in
             if success {
-                // auto fetch statuses?
+                self.twitterSignInButton.hidden = true
+                // load status w/ indicator
+                self.twitter.fetchTimeline({ (error) in
+                    if let error = error {
+                        self.presentErrorAlert(error.localizedDescription)
+                    } else {
+                        // dismiss indicator, show tableview of statuses
+                    }
+                })
             } else {
-                // present error alert
+                self.presentErrorAlert()
             }
         }
     }
@@ -45,5 +53,12 @@ class ViewController: UIViewController {
         twitterSignInButton.centerYAnchor.constraintEqualToAnchor(view.centerYAnchor).active = true
         twitterSignInButton.setTitle("Authorize Twitter", forState: .Normal)
         twitterSignInButton.addTarget(self, action: #selector(authorizeTapped), forControlEvents: .TouchUpInside)
+    }
+    
+    func presentErrorAlert(message:String = "Something went wrong. Sorry :("){
+        let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
+        let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(okAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 }

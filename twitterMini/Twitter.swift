@@ -15,8 +15,8 @@ struct TwitterStatus {
     let createdAt : String
     let text : String
     let user : TwitterUser
-    let likes : Int
-    let retweets : Int
+    let likes : String
+    let retweets : String
     //TODO: deal with media (["extendedEntities"]["media"]["media_url_https"])
 }
 
@@ -58,7 +58,7 @@ class TwitterAPIClient {
         )
     }
     
-    func fetchTimeline(completion:(error:ErrorType?)->Void){
+    func fetchTimeline(completion:(error:NSError?)->Void){
         if let idForLoggedInUser = idForLoggedInUser{
             let homeTimelineEndpoint = "statuses/home_timeline.json"
             let homeTimelineURL = "\(twitterBaseURL)\(homeTimelineEndpoint)?user_id=\(idForLoggedInUser)"
@@ -67,31 +67,32 @@ class TwitterAPIClient {
                 print("Fetch Home Timeline Success")
                 do{
                     let dataObject = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+
+                    // TODO: move this code into a datastore, pass dataObject via completion
                     
-                    // STATUS
-                    if let statusDictionary = dataObject.firstObject as? [String:AnyObject],
-                        let createdAt = statusDictionary["created_at"] as? String,
-                        let text = statusDictionary["text"] as? String,
-                        let likes = statusDictionary["favorite_count"] as? Int,
-                        let retweets = statusDictionary["retweet_count"] as? Int {
-                        print(createdAt)
-                        print(text, likes, retweets)
-                        
-                        // USER
-                        if let userDictionary = statusDictionary["user"] as? [String:AnyObject],
-                            let name = userDictionary["name"] as? String,
-                            let screenName = userDictionary["screen_name"] as? String,
-                            let profileImageURL = userDictionary["profile_image_url_https"] as? String {
-                            
-                            let user = TwitterUser(screenName:screenName, name:name, profileImageURL:profileImageURL)
-                            let status = TwitterStatus(createdAt:createdAt, text:text, user:user, likes:likes, retweets:likes)
-                            print(status)
-                        }
-                    }
-                    print(dataObject.firstObject)
+//                    // STATUS
+//                    if let statusDictionary = dataObject.firstObject as? [String:AnyObject],
+//                        let createdAt = statusDictionary["created_at"] as? String,
+//                        let text = statusDictionary["text"] as? String,
+//                        let likes = statusDictionary["favorite_count"] as? String,
+//                        let retweets = statusDictionary["retweet_count"] as? String {
+//                        print(createdAt)
+//                        print(text, likes, retweets)
+//                        
+//                        // USER
+//                        if let userDictionary = statusDictionary["user"] as? [String:AnyObject],
+//                            let name = userDictionary["name"] as? String,
+//                            let screenName = userDictionary["screen_name"] as? String,
+//                            let profileImageURL = userDictionary["profile_image_url_https"] as? String {
+//                            
+//                            let user = TwitterUser(screenName:screenName, name:name, profileImageURL:profileImageURL)
+//                            let status = TwitterStatus(createdAt:createdAt, text:text, user:user, likes:likes, retweets:likes)
+//                            print(status)
+//                        }
+//                    }
                 } catch {
                     print("Error Serializing JSON: \(error)")
-                    completion(error:error)
+                    completion(error:error as NSError)
                 }
                 }, failure: { (error) in
                     print("Fetch Home Timeline Error:\(error.localizedDescription)")
@@ -99,9 +100,8 @@ class TwitterAPIClient {
             })
         } else {
             print("user is not logged in...")
-            // FIXME: somehow set this up as an error and handle it
-            // OR just axe the error in completion and go with a bool instead
+            let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"There is no authenticated user."])
+            completion(error: error)
         }
     }
-
 }
