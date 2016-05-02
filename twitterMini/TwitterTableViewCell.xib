@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="149" id="T4D-Y6-frb" customClass="TwitterTableViewCell" customModule="twitterMini" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="620" height="149"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T4D-Y6-frb" id="4uz-WW-WOI">
+                <rect key="frame" x="0.0" y="0.0" width="620" height="148.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="w2E-3U-cml">
+                        <rect key="frame" x="8" y="0.0" width="604" height="149"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cxg-iE-Dyz">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="CnZ-2s-Dpd"/>
+                                    <constraint firstAttribute="width" secondItem="Cxg-iE-Dyz" secondAttribute="height" multiplier="1:1" id="aI0-O6-Dpf"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="p2w-rL-JKc">
+                                <rect key="frame" x="68" y="0.0" width="536" height="86"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="bottom" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="V6V-5g-hGw">
+                                        <rect key="frame" x="0.0" y="0.0" width="299" height="21"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jrn-EC-KDp">
+                                                <rect key="frame" x="0.0" y="0.0" width="143" height="21"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Game Of Thrones">
+                                                        <attributes>
+                                                            <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <font key="NSFont" size="17" name="HelveticaNeue-Bold"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="@gameofthrones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MM-g5-2pk">
+                                                <rect key="frame" x="151" y="4" width="111" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="14m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTh-Pj-4Y3">
+                                                <rect key="frame" x="270" y="3" width="29" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" misplaced="YES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iRl-Rw-hpM">
+                                        <rect key="frame" x="0.0" y="25" width="480" height="61"/>
+                                        <string key="text">"I’m here to help. Don’t eat the help."
+Relive "Home" today on @HBONOW: http://www.hbonow.com  #GameofThrones</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="w2E-3U-cml" secondAttribute="trailing" constant="8" id="1uh-bv-wbN"/>
+                    <constraint firstAttribute="bottom" secondItem="w2E-3U-cml" secondAttribute="bottom" id="9sH-2S-EpS"/>
+                    <constraint firstItem="w2E-3U-cml" firstAttribute="leading" secondItem="4uz-WW-WOI" secondAttribute="leading" constant="8" id="9ty-ot-LOU"/>
+                    <constraint firstItem="w2E-3U-cml" firstAttribute="top" secondItem="4uz-WW-WOI" secondAttribute="top" id="wIz-PV-WDk"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="createdAtLabel" destination="xTh-Pj-4Y3" id="rl9-1E-bAb"/>
+                <outlet property="textContentLabel" destination="iRl-Rw-hpM" id="XZF-cR-ql7"/>
+                <outlet property="userImageView" destination="Cxg-iE-Dyz" id="X83-Ql-m59"/>
+                <outlet property="userNameLabel" destination="Jrn-EC-KDp" id="GaX-zZ-72W"/>
+                <outlet property="userScreenNameLabel" destination="2MM-g5-2pk" id="p3G-i6-QNj"/>
+            </connections>
+            <point key="canvasLocation" x="611" y="296.5"/>
+        </tableViewCell>
+    </objects>
+</document>
