@@ -18,10 +18,12 @@ class TwitterTableViewCell : UITableViewCell {
     
     var status: TwitterStatus?{
         didSet{
-            userNameLabel.text = status?.user.name
-            userScreenNameLabel.text = status?.user.screenName
-            createdAtLabel.text = status?.createdAt
-            textContentLabel.text = status?.text
+            if let status = status {
+                userNameLabel.text = status.user.name
+                userScreenNameLabel.text = "@\(status.user.screenName.lowercaseString)"
+                createdAtLabel.text = status.createdAt // FIXME: just horrible
+                textContentLabel.text = status.text
+            }
         }
     }
     

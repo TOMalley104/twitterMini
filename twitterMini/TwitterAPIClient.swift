@@ -36,7 +36,7 @@ class TwitterAPIClient {
                 completion(.Failure(error))
             }
             
-            oauthManager.authorizeWithCallbackURL(callbackURL, success: success, failure: failure)
+            self.oauthManager.authorizeWithCallbackURL(callbackURL, success: success, failure: failure)
         } else {
             Qu.Main {
                 // FIXME: use application error
