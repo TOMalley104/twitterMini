@@ -29,10 +29,10 @@
 		B8A7E0981CD7915D00E10028 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8A7E09B1CD7915D00E10028 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8A7E09D1CD7915D00E10028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterDataManager.swift; sourceTree = "<group>"; };
+		B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterDataManager.swift; path = Services/TwitterDataManager.swift; sourceTree = "<group>"; };
 		B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterTableViewCell.xib; sourceTree = "<group>"; };
 		B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterTableViewCell.swift; sourceTree = "<group>"; };
-		B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterAPIClient.swift; sourceTree = "<group>"; };
+		B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterAPIClient.swift; path = Services/TwitterAPIClient.swift; sourceTree = "<group>"; };
 		F26E96094064CD62B823B552 /* Pods-twitterMini.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterMini.release.xcconfig"; path = "Pods/Target Support Files/Pods-twitterMini/Pods-twitterMini.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,17 +87,41 @@
 			isa = PBXGroup;
 			children = (
 				B8A7E0911CD7915D00E10028 /* AppDelegate.swift */,
-				B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */,
-				B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */,
-				B8A7E0931CD7915D00E10028 /* HomeStatusesTableViewController.swift */,
 				B8A7E0951CD7915D00E10028 /* Main.storyboard */,
-				B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */,
-				B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */,
+				B8A7E0B31CD900CA00E10028 /* ViewControllers */,
+				B8A7E0B51CD90AA100E10028 /* Services */,
 				B8A7E0981CD7915D00E10028 /* Assets.xcassets */,
 				B8A7E09A1CD7915D00E10028 /* LaunchScreen.storyboard */,
 				B8A7E09D1CD7915D00E10028 /* Info.plist */,
 			);
 			path = twitterMini;
+			sourceTree = "<group>";
+		};
+		B8A7E0B31CD900CA00E10028 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B8A7E0B41CD900DA00E10028 /* HomeStatuses */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B8A7E0B41CD900DA00E10028 /* HomeStatuses */ = {
+			isa = PBXGroup;
+			children = (
+				B8A7E0931CD7915D00E10028 /* HomeStatusesTableViewController.swift */,
+				B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */,
+				B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */,
+			);
+			path = HomeStatuses;
+			sourceTree = "<group>";
+		};
+		B8A7E0B51CD90AA100E10028 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */,
+				B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

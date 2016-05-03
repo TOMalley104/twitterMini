@@ -21,7 +21,7 @@ class TwitterTableViewCell : UITableViewCell {
             if let status = status {
                 userNameLabel.text = status.user.name
                 userScreenNameLabel.text = "@\(status.user.screenName.lowercaseString)"
-                createdAtLabel.text = status.createdAt // FIXME: just horrible
+//                createdAtLabel.text = status.createdAt // FIXME: just horrible
                 textContentLabel.text = status.text
             }
         }

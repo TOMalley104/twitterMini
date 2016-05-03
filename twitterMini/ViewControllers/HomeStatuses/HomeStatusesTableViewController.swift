@@ -22,7 +22,7 @@ class HomeStatusesTableViewController : UITableViewController {
         let nib = UINib(nibName: "TwitterTableViewCell", bundle: nil)
         self.tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 20
+        self.tableView.estimatedRowHeight = 20 // FIXME: problem with initial cell height, dunno what 
     }
     
     override func viewDidAppear(animated: Bool) {
