@@ -8,6 +8,7 @@
 
 import Foundation
 import OAuthSwift
+import Intrepid
 
 // MARK: Status/User Objects
 
@@ -29,8 +30,6 @@ struct TwitterUser {
 // MARK: API Client
 
 class TwitterAPIClient {
-    static let sharedClient = TwitterAPIClient()
-    
     let twitterBaseURL = "https://api.twitter.com/1.1/"
     let callback = "twittestIntrepid://"
     
@@ -41,85 +40,105 @@ class TwitterAPIClient {
         authorizeUrl:    "https://api.twitter.com/oauth/authorize",
         accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
     )
+    
     private var idForLoggedInUser: String?
     
-    func authorizeTwitter(completion: (success: Bool) -> Void){
+    // FIXME: change completion to error
+    func authorizeTwitter(completion: (Result<Void>) -> Void) {
         if let callbackURL = NSURL(string: callback) {
-            oauthManager.authorizeWithCallbackURL( callbackURL, success: {
-                credential, response, parameters in
+
+            let success = { (credential: OAuthSwiftCredential, response: NSURLResponse?, parameters: [String:String]) in
                 print("Authentication Success, userID:\(parameters["user_id"])")
                 self.idForLoggedInUser = parameters["user_id"]
-                completion(success:true)
+                completion(.Success())
+            }
+            
+            let failure = { (error:NSError) in
+                print("Authentication Error: \(error.localizedDescription)")
+                completion(.Failure(error))
+            }
+            
+            oauthManager.authorizeWithCallbackURL(callbackURL, success: success, failure: failure)
+        } else {
+            dispatch_async(dispatch_get_main_queue()) {
+                // FIXME: use application error
+                let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"Callback URL is invalid."])
+                completion(.Failure(error))
+            }
+        }
+    }
+    
+    func fetchTimeline(completion: (Result<[[String:AnyObject]]?>) -> Void) {
+        if let idForLoggedInUser = idForLoggedInUser{
+            
+            let homeTimelineEndpoint = "statuses/home_timeline.json"
+            let homeTimelineURL = "\(twitterBaseURL)\(homeTimelineEndpoint)?user_id=\(idForLoggedInUser)"
+            
+            oauthManager.client.get(homeTimelineURL, success: { data, response in
+                completion(self.handleTimelineData(data))
                 }, failure: { error in
-                    print("Authentication Error: \(error.localizedDescription)")
-                    completion(success:false)
-                }
-            )
+                    completion(.Failure(error))
+            })
+            
+        } else {
+            print("user is not logged in...")
+            // FIXME: use application error
+            let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"There is no authenticated user."])
+            completion(.Failure(error))
+        }
+    }
+    
+    // MARK: Helpers
+    
+    func handleTimelineData(data:NSData) -> Result<[[String:AnyObject]]?> {
+        do {
+            let dataObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String:AnyObject]]
+            return .Success(dataObject)
+        } catch {
+            return .Failure(error)
         }
     }
 
-    func fetchTimeline(completion: (rawStatuses: [[String:AnyObject]]?, error: NSError?) -> Void){
-        if let idForLoggedInUser = idForLoggedInUser{
-            let homeTimelineEndpoint = "statuses/home_timeline.json"
-            let homeTimelineURL = "\(twitterBaseURL)\(homeTimelineEndpoint)?user_id=\(idForLoggedInUser)"
-            print("hitting \(homeTimelineURL)")
-            oauthManager.client.get(homeTimelineURL, success: { data, response in
-                print("Fetch Home Timeline Success")
-                do {
-                    let dataObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String:AnyObject]]
-                    completion(rawStatuses: dataObject, error: nil)
-                } catch {
-                    print("Error Serializing JSON: \(error)")
-                    completion(rawStatuses: nil, error: error as NSError)
-                }
-                }, failure: { error in
-                    print("Fetch Home Timeline Error:\(error.localizedDescription)")
-                    completion(rawStatuses: nil, error: error)
-            })
-        } else {
-            print("user is not logged in...")
-            // FIXME: use constants
-            let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"There is no authenticated user."])
-            completion(rawStatuses:nil, error: error)
-        }
-    }
 }
 
 // MARK: Data Manager
 
 class TwitterDataManager {
     static let sharedManager = TwitterDataManager()
-    let twitter = TwitterAPIClient.sharedClient // maybe make just the OAuth1Swift a singleton and use that to init any API instances?
+    
+    private let twitter = TwitterAPIClient()
     var statuses = [TwitterStatus]()
     
-    func authorize(completion:(success: Bool) -> Void){
+    func authorize(completion:(Result<Void>) -> Void) {
         twitter.authorizeTwitter { success in
-            completion(success: success)
-        }
+            completion(.Success())
+        } // FIXME: pass error through
     }
     
-    func populateStatuses(completion: (NSError?) -> Void){
-        twitter.fetchTimeline { rawStatuses, error in
-            if let error = error {
-                completion(error)
+    func populateStatuses(completion: (Result<Void>) -> Void) {
+        self.twitter.fetchTimeline { result in
+            if let error = result.error {
+                completion(.Failure(error))
             } else {
                 // FIXME: use genome
-                for statusDictionary in rawStatuses ?? [] {
-                    if let createdAt = statusDictionary["created_at"] as? String,
-                        let text = statusDictionary["text"] as? String,
-                        let likes = statusDictionary["favorite_count"] as? Int,
-                        let retweets = statusDictionary["retweet_count"] as? Int,
-                        let userDictionary = statusDictionary["user"] as? [String: AnyObject],
-                        let name = userDictionary["name"] as? String,
-                        let screenName = userDictionary["screen_name"] as? String,
-                        let profileImageURL = userDictionary["profile_image_url_https"] as? String {
-                        
-                        let user = TwitterUser(screenName: screenName, name: name, profileImageURL: profileImageURL)
-                        let status = TwitterStatus(createdAt: createdAt, text: text, user: user, likes: "\(likes)", retweets: "\(retweets)")
-                        self.statuses.append(status)
+                if let rawStatuses = result.value {
+                    for statusDictionary in rawStatuses ?? [] {
+                        if let createdAt = statusDictionary["created_at"] as? String,
+                            let text = statusDictionary["text"] as? String,
+                            let likes = statusDictionary["favorite_count"] as? Int,
+                            let retweets = statusDictionary["retweet_count"] as? Int,
+                            let userDictionary = statusDictionary["user"] as? [String: AnyObject],
+                            let name = userDictionary["name"] as? String,
+                            let screenName = userDictionary["screen_name"] as? String,
+                            let profileImageURL = userDictionary["profile_image_url_https"] as? String {
+                            
+                            let user = TwitterUser(screenName: screenName, name: name, profileImageURL: profileImageURL)
+                            let status = TwitterStatus(createdAt: createdAt, text: text, user: user, likes: "\(likes)", retweets: "\(retweets)")
+                            self.statuses.append(status)
+                        }
                     }
                 }
-                completion(nil)
+                completion(.Success())
             }
         }
     }
