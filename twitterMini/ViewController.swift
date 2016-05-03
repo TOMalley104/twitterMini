@@ -24,13 +24,12 @@ class ViewController: UIViewController {
     // MARK: Actions
     
     func authorizeTapped() {
-        dataManager.authorize { success in
-            if success {
-                self.dataManager.populateStatuses({ error in
-                    if let error = error {
-                        self.presentErrorAlert(error.localizedDescription)
+        dataManager.authorize { result in
+            if result.isSuccess {
+                self.dataManager.populateStatuses({ result in
+                    if let error = result.error {
+                        self.presentErrorAlert((error as NSError).description)
                     } else {
-                        // TODO: show tableview!
                         print(self.dataManager.statuses)
                     }
                 })
@@ -52,6 +51,7 @@ class ViewController: UIViewController {
         twitterSignInButton.addTarget(self, action: #selector(authorizeTapped), forControlEvents: .TouchUpInside)
     }
     
+    // FIXME: make this take an tMiniError
     func presentErrorAlert(message: String = "Something went wrong. Sorry :("){
         let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
