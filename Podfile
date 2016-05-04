@@ -7,5 +7,6 @@ target 'twitterMini' do
 	pod 'OAuthSwift'
 	pod 'Intrepid'
 	pod 'SDWebImage'
+	pod 'Genome'
 end
 

@@ -1,23 +1,29 @@
 PODS:
+  - Genome (2.0.4):
+    - PureJsonSerializer (~> 1.0.0)
   - Intrepid (0.3.1):
     - Intrepid/Core (= 0.3.1)
   - Intrepid/Core (0.3.1):
     - IP-UIKit-Wisdom (= 0.0.9)
   - IP-UIKit-Wisdom (0.0.9)
   - OAuthSwift (0.5.2)
+  - PureJsonSerializer (1.0.2)
   - SDWebImage (3.7.5):
     - SDWebImage/Core (= 3.7.5)
   - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
+  - Genome
   - Intrepid
   - OAuthSwift
   - SDWebImage
 
 SPEC CHECKSUMS:
+  Genome: ee22f71d87eefac0f622f77e75d1fef7f7fa12e7
   Intrepid: c38decf040ef64b707e855e06e97773f51502bd4
   IP-UIKit-Wisdom: cd9838571e97427a0c61c05d856eaaca9afd7c1a
   OAuthSwift: 1ef042d4362e755e24a78f158d817245641a5d24
+  PureJsonSerializer: 81d6bc0e21ed4b837193279aa3d29981f75f9057
   SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
 
 COCOAPODS: 0.39.0

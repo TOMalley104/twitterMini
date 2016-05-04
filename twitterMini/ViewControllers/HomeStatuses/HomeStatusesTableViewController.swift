@@ -62,7 +62,7 @@ class HomeStatusesTableViewController : UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let status = self.dataManager.statuses[indexPath.row]
-        if status.mediaURL != nil {
+        if status.mediaURL != nil && status.mediaURL != "" {
             let cell = tableView.dequeueReusableCellWithIdentifier(mediaCellIdentifier, forIndexPath: indexPath) as! TwitterMediaTableViewCell
             cell.status = status
             return cell

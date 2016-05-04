@@ -9,15 +9,17 @@
 import Foundation
 import OAuthSwift
 import Intrepid
+import Genome
+import PureJsonSerializer
 
 // MARK: Status/User Objects
 
-struct TwitterStatus {
+struct TwitterStatus : MappableObject {
     let createdAt: String
     let text: String
     let user: TwitterUser
-    let likes: String
-    let retweets: String
+    let likes: Int
+    let retweets: Int
     var mediaURL: String?
     
     var timeSinceCreation: String? {
@@ -34,12 +36,30 @@ struct TwitterStatus {
         }
         return nil
     }
+    
+    init(map: Map) throws {
+        self.createdAt = try map.extract("created_at")
+        self.text = try map.extract("text")
+        self.likes = try map.extract("favorite_count")
+        self.retweets = try map.extract("retweet_count")
+        // FIXME: prevents statuses that don't have a mediaURL from getting created
+        try self.mediaURL <~ map["extended_entities.media"].transformFromJson { (json: Json) -> String? in
+            return json.arrayValue?.first?["media_url_https"]?.stringValue ?? ""
+        } 
+        self.user = try TwitterUser(map: map)
+    }
 }
 
-struct TwitterUser {
-    let screenName: String
+struct TwitterUser : MappableObject {
     let name: String
+    let screenName: String
     let profileImageURL: String
+    
+    init(map: Map) throws {
+        self.name = try map.extract("user.name")
+        self.screenName = try map.extract("user.screen_name")
+        self.profileImageURL = try map.extract("user.profile_image_url_https")
+    }
 }
 
 // MARK: Data Manager
@@ -73,32 +93,13 @@ class TwitterDataManager {
     }
     
     func createStatuses(fromDictionaries rawStatuses: [[String:AnyObject]]) -> [TwitterStatus] {
-        // FIXME: use genome
         var newStatuses = [TwitterStatus]()
         for statusDictionary in rawStatuses {
-            if let createdAt = statusDictionary["created_at"] as? String,
-                let text = statusDictionary["text"] as? String,
-                let likes = statusDictionary["favorite_count"] as? Int,
-                let retweets = statusDictionary["retweet_count"] as? Int,
-                let userDictionary = statusDictionary["user"] as? [String: AnyObject],
-                let name = userDictionary["name"] as? String,
-                let screenName = userDictionary["screen_name"] as? String,
-                let profileImageURL = userDictionary["profile_image_url_https"] as? String {
-                
-                var mediaURL : String?
-                var strippedText : String?
-
-                if let mediaDictionaries = statusDictionary["extended_entities"]?["media"] as? [[String:AnyObject]],
-                    let firstMediaDictionary = mediaDictionaries.first,
-                    let urlToStrip = firstMediaDictionary["url"] as? String,
-                    let actualMediaURL = firstMediaDictionary["media_url_https"] as? String {
-                    mediaURL = actualMediaURL
-                    strippedText = text.stringByReplacingOccurrencesOfString(urlToStrip, withString: "")
-                }
-                
-                let user = TwitterUser(screenName: screenName, name: name, profileImageURL: profileImageURL)
-                let status = TwitterStatus(createdAt: createdAt, text: strippedText ?? text, user: user, likes: "\(likes)", retweets: "\(retweets)", mediaURL:mediaURL ?? nil)
+            do {
+                let status = try TwitterStatus(js: statusDictionary)
                 newStatuses.append(status)
+            } catch {
+                // genome prints its own errors so no need...
             }
         }
         return newStatuses
