@@ -11,18 +11,18 @@ import OAuthSwift
 
 class HomeStatusesTableViewController : UITableViewController {
     
-    let cellIdentifier = "twitterCell"
+    let mediaCellIdentifier = "twitterMediaCell"
+    let textCellIdentifier = "twitterTextCell"
     let dataManager = TwitterDataManager.sharedManager
     
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: bar button for log in / out
-        let nib = UINib(nibName: "TwitterTableViewCell", bundle: nil)
-        self.tableView.registerNib(nib, forCellReuseIdentifier: cellIdentifier)
+        self.tableView.registerNib(UINib(nibName: "TwitterMediaTableViewCell", bundle: nil), forCellReuseIdentifier: mediaCellIdentifier)
+        self.tableView.registerNib(UINib(nibName: "TwitterTextTableViewCell", bundle: nil), forCellReuseIdentifier: textCellIdentifier)
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 20 // FIXME: problem with initial cell height, dunno what 
+        self.tableView.estimatedRowHeight = 100 
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -35,17 +35,18 @@ class HomeStatusesTableViewController : UITableViewController {
     func authorizeTwitter() {
         self.dataManager.authorize { result in
             if result.isSuccess {
+                self.title = self.dataManager.userScreenName
                 self.populateStatuses()
-            } else if let error = result.error as? NSError {
-                self.presentErrorAlert(error.description)
+            } else if let error = result.error as? TwitterMiniError {
+                self.presentErrorAlert(error)
             }
         }
     }
     
     func populateStatuses() {
         self.dataManager.populateStatuses({ result in
-            if let error = result.error as? NSError {
-                self.presentErrorAlert(error.localizedDescription)
+            if let error = result.error as? TwitterMiniError {
+                self.presentErrorAlert(error)
             } else {
                 self.tableView.reloadData()
                 print(self.dataManager.statuses)
@@ -60,18 +61,33 @@ class HomeStatusesTableViewController : UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! TwitterTableViewCell
-        cell.status = self.dataManager.statuses[indexPath.row]
-        return cell
+        let status = self.dataManager.statuses[indexPath.row]
+        if status.mediaURL != nil {
+            let cell = tableView.dequeueReusableCellWithIdentifier(mediaCellIdentifier, forIndexPath: indexPath) as! TwitterMediaTableViewCell
+            cell.status = status
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(textCellIdentifier, forIndexPath: indexPath) as! TwitterTextTableViewCell
+            cell.status = self.dataManager.statuses[indexPath.row]
+            return cell
+        }
     }
     
     // MARK: Helpers
     
-    // FIXME: make this take an tMiniError
-    func presentErrorAlert(message: String = "Something went wrong. Sorry :("){
+    func presentErrorAlert(error: TwitterMiniError){
+        let message: String
+        switch error {
+        case .AuthenticationFailure:
+            message = "Authentication with Twitter failed. Try logging in again."
+            break
+        case .RequestFailure:
+            message = "Authentication with Twitter failed. Try logging in again."
+            break
+        }
         let alertController = UIAlertController(title: "Oops!", message: message, preferredStyle: .Alert)
         let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
         alertController.addAction(okAction)
-        presentViewController(alertController, animated: true, completion: nil)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 }

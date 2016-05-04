@@ -10,6 +10,11 @@ import Foundation
 import OAuthSwift
 import Intrepid
 
+enum TwitterMiniError: ErrorType {
+    case AuthenticationFailure
+    case RequestFailure
+}
+
 class TwitterAPIClient {
     let twitterBaseURL = "https://api.twitter.com/1.1/"
     let callbackURL = "twittestIntrepid://"
@@ -23,25 +28,25 @@ class TwitterAPIClient {
     )
     
     private var idForLoggedInUser: String?
+    var screenNameForLoggedInUser: String?
     
     func authorizeTwitter(completion: (Result<Void>) -> Void) {
         if let callbackURL = NSURL(string: self.callbackURL) {
             
             let success = { (credential: OAuthSwiftCredential, response: NSURLResponse?, parameters: [String:String]) in
                 self.idForLoggedInUser = parameters["user_id"]
+                self.screenNameForLoggedInUser = parameters["screen_name"]
                 completion(.Success())
             }
             
             let failure = { (error:NSError) in
-                completion(.Failure(error))
+                completion(.Failure(TwitterMiniError.AuthenticationFailure))
             }
             
             self.oauthManager.authorizeWithCallbackURL(callbackURL, success: success, failure: failure)
         } else {
             Qu.Main {
-                // FIXME: use application error
-                let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"Callback URL is invalid."])
-                completion(.Failure(error))
+                completion(.Failure(TwitterMiniError.AuthenticationFailure))
             }
         }
     }
@@ -55,13 +60,10 @@ class TwitterAPIClient {
             self.oauthManager.client.get(homeTimelineURL, success: { data, response in
                 completion(self.serializeTimelineData(data))
                 }, failure: { error in
-                    completion(.Failure(error))
+                    completion(.Failure(TwitterMiniError.RequestFailure))
             })
-            
         } else {
-            // FIXME: use application error
-            let error = NSError(domain: "Tom's Domain", code: 420, userInfo: [NSLocalizedDescriptionKey:"There is no authenticated user."])
-            completion(.Failure(error))
+            completion(.Failure(TwitterMiniError.AuthenticationFailure))
         }
     }
     
@@ -72,7 +74,7 @@ class TwitterAPIClient {
             let dataObject = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [[String:AnyObject]]
             return .Success(dataObject)
         } catch {
-            return .Failure(error)
+            return .Failure(TwitterMiniError.RequestFailure)
         }
     }
     

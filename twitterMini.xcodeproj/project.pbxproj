@@ -14,9 +14,12 @@
 		B8A7E0991CD7915D00E10028 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8A7E0981CD7915D00E10028 /* Assets.xcassets */; };
 		B8A7E09C1CD7915D00E10028 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8A7E09A1CD7915D00E10028 /* LaunchScreen.storyboard */; };
 		B8A7E0A61CD7C02F00E10028 /* TwitterDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */; };
-		B8A7E0AA1CD7FC5C00E10028 /* TwitterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */; };
-		B8A7E0AC1CD7FF5F00E10028 /* TwitterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */; };
+		B8A7E0AA1CD7FC5C00E10028 /* TwitterMediaTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A7E0A91CD7FC5C00E10028 /* TwitterMediaTableViewCell.xib */; };
+		B8A7E0AC1CD7FF5F00E10028 /* TwitterMediaTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0AB1CD7FF5F00E10028 /* TwitterMediaTableViewCell.swift */; };
 		B8A7E0B01CD8F6A600E10028 /* TwitterAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */; };
+		B8A7E0B71CD912DC00E10028 /* NSDate+TimeFrom.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0B61CD912DC00E10028 /* NSDate+TimeFrom.swift */; };
+		B8A7E0BB1CD93ADC00E10028 /* TwitterTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A7E0BA1CD93ADC00E10028 /* TwitterTextTableViewCell.swift */; };
+		B8A7E0BD1CD93B1800E10028 /* TwitterTextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A7E0BC1CD93B1800E10028 /* TwitterTextTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,9 +33,12 @@
 		B8A7E09B1CD7915D00E10028 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B8A7E09D1CD7915D00E10028 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterDataManager.swift; path = Services/TwitterDataManager.swift; sourceTree = "<group>"; };
-		B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterTableViewCell.xib; sourceTree = "<group>"; };
-		B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterTableViewCell.swift; sourceTree = "<group>"; };
+		B8A7E0A91CD7FC5C00E10028 /* TwitterMediaTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterMediaTableViewCell.xib; sourceTree = "<group>"; };
+		B8A7E0AB1CD7FF5F00E10028 /* TwitterMediaTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterMediaTableViewCell.swift; sourceTree = "<group>"; };
 		B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TwitterAPIClient.swift; path = Services/TwitterAPIClient.swift; sourceTree = "<group>"; };
+		B8A7E0B61CD912DC00E10028 /* NSDate+TimeFrom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+TimeFrom.swift"; path = "Services/NSDate+TimeFrom.swift"; sourceTree = "<group>"; };
+		B8A7E0BA1CD93ADC00E10028 /* TwitterTextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterTextTableViewCell.swift; sourceTree = "<group>"; };
+		B8A7E0BC1CD93B1800E10028 /* TwitterTextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TwitterTextTableViewCell.xib; sourceTree = "<group>"; };
 		F26E96094064CD62B823B552 /* Pods-twitterMini.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterMini.release.xcconfig"; path = "Pods/Target Support Files/Pods-twitterMini/Pods-twitterMini.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,8 +115,10 @@
 			isa = PBXGroup;
 			children = (
 				B8A7E0931CD7915D00E10028 /* HomeStatusesTableViewController.swift */,
-				B8A7E0AB1CD7FF5F00E10028 /* TwitterTableViewCell.swift */,
-				B8A7E0A91CD7FC5C00E10028 /* TwitterTableViewCell.xib */,
+				B8A7E0AB1CD7FF5F00E10028 /* TwitterMediaTableViewCell.swift */,
+				B8A7E0A91CD7FC5C00E10028 /* TwitterMediaTableViewCell.xib */,
+				B8A7E0BA1CD93ADC00E10028 /* TwitterTextTableViewCell.swift */,
+				B8A7E0BC1CD93B1800E10028 /* TwitterTextTableViewCell.xib */,
 			);
 			path = HomeStatuses;
 			sourceTree = "<group>";
@@ -120,6 +128,7 @@
 			children = (
 				B8A7E0A51CD7C02E00E10028 /* TwitterDataManager.swift */,
 				B8A7E0AF1CD8F6A600E10028 /* TwitterAPIClient.swift */,
+				B8A7E0B61CD912DC00E10028 /* NSDate+TimeFrom.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -185,10 +194,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8A7E0BD1CD93B1800E10028 /* TwitterTextTableViewCell.xib in Resources */,
 				B8A7E09C1CD7915D00E10028 /* LaunchScreen.storyboard in Resources */,
 				B8A7E0991CD7915D00E10028 /* Assets.xcassets in Resources */,
 				B8A7E0971CD7915D00E10028 /* Main.storyboard in Resources */,
-				B8A7E0AA1CD7FC5C00E10028 /* TwitterTableViewCell.xib in Resources */,
+				B8A7E0AA1CD7FC5C00E10028 /* TwitterMediaTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,8 +260,10 @@
 				B8A7E0B01CD8F6A600E10028 /* TwitterAPIClient.swift in Sources */,
 				B8A7E0941CD7915D00E10028 /* HomeStatusesTableViewController.swift in Sources */,
 				B8A7E0921CD7915D00E10028 /* AppDelegate.swift in Sources */,
+				B8A7E0BB1CD93ADC00E10028 /* TwitterTextTableViewCell.swift in Sources */,
 				B8A7E0A61CD7C02F00E10028 /* TwitterDataManager.swift in Sources */,
-				B8A7E0AC1CD7FF5F00E10028 /* TwitterTableViewCell.swift in Sources */,
+				B8A7E0B71CD912DC00E10028 /* NSDate+TimeFrom.swift in Sources */,
+				B8A7E0AC1CD7FF5F00E10028 /* TwitterMediaTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
