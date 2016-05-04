@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="N57-J9-bVY" customClass="TwitterTextTableViewCell" customModule="twitterMini" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="779" height="74"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N57-J9-bVY" id="Rm5-m0-ltc">
+                <rect key="frame" x="0.0" y="0.0" width="779" height="74"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LobsterDog" translatesAutoresizingMaskIntoConstraints="NO" id="Gcc-CA-hrP">
+                        <rect key="frame" x="8" y="12" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="09l-db-8Eb"/>
+                            <constraint firstAttribute="width" secondItem="Gcc-CA-hrP" secondAttribute="height" multiplier="1:1" id="dU9-Q2-34Q"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Game Of Thrones" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcM-oX-OIY">
+                        <rect key="frame" x="66" y="8" width="128" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="@gameofthrones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbi-P5-AE2">
+                        <rect key="frame" x="202" y="10" width="104" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5X-Tb-oL9">
+                        <rect key="frame" x="745" y="10" width="26" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="1000" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y2X-Zw-vd2">
+                        <rect key="frame" x="66" y="26" width="697" height="40"/>
+                        <string key="text">"I’m here to help. Don’t eat the help."
+Relive "Home" today on @HBONOW: http://www.hbonow.com  #GameofThrones</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Y2X-Zw-vd2" secondAttribute="trailing" constant="8" id="6LL-1i-pvE"/>
+                    <constraint firstItem="xcM-oX-OIY" firstAttribute="leading" secondItem="Gcc-CA-hrP" secondAttribute="trailing" constant="8" id="8CD-KF-yqX"/>
+                    <constraint firstItem="M5X-Tb-oL9" firstAttribute="baseline" secondItem="jbi-P5-AE2" secondAttribute="baseline" id="H8L-3R-LDp"/>
+                    <constraint firstItem="Gcc-CA-hrP" firstAttribute="leading" secondItem="Rm5-m0-ltc" secondAttribute="leadingMargin" id="Lcs-6s-4qO"/>
+                    <constraint firstItem="Y2X-Zw-vd2" firstAttribute="top" secondItem="xcM-oX-OIY" secondAttribute="bottomMargin" constant="8" id="MQh-pN-RuJ"/>
+                    <constraint firstItem="jbi-P5-AE2" firstAttribute="baseline" secondItem="xcM-oX-OIY" secondAttribute="baseline" id="WoC-Nd-r3u"/>
+                    <constraint firstItem="Gcc-CA-hrP" firstAttribute="top" secondItem="Rm5-m0-ltc" secondAttribute="topMargin" constant="4" id="bMF-8g-Fmq"/>
+                    <constraint firstItem="Y2X-Zw-vd2" firstAttribute="bottom" secondItem="Rm5-m0-ltc" secondAttribute="bottom" constant="-8" id="gK1-Pu-0vc"/>
+                    <constraint firstAttribute="topMargin" secondItem="xcM-oX-OIY" secondAttribute="top" id="p6a-bA-SuA"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="M5X-Tb-oL9" secondAttribute="trailing" id="qzC-yk-gTi"/>
+                    <constraint firstItem="jbi-P5-AE2" firstAttribute="leading" secondItem="xcM-oX-OIY" secondAttribute="trailing" constant="8" id="rqq-4d-7oh"/>
+                    <constraint firstItem="Y2X-Zw-vd2" firstAttribute="leading" secondItem="xcM-oX-OIY" secondAttribute="leading" id="sAY-t0-lGa"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="createdAtLabel" destination="M5X-Tb-oL9" id="q5x-DV-52K"/>
+                <outlet property="textContentLabel" destination="Y2X-Zw-vd2" id="iYi-4a-xwK"/>
+                <outlet property="userImageView" destination="Gcc-CA-hrP" id="ddE-Cn-qUF"/>
+                <outlet property="userNameLabel" destination="xcM-oX-OIY" id="COd-SI-WmW"/>
+                <outlet property="userScreenNameLabel" destination="jbi-P5-AE2" id="RPl-jK-JXe"/>
+            </connections>
+            <point key="canvasLocation" x="528.5" y="-194"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="LobsterDog" width="184" height="184"/>
+    </resources>
+</document>
